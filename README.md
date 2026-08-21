@@ -181,7 +181,7 @@ helm install kong kong/ingress \
   --set gateway.enabled=true \
   --set ingressController.enabled=true
 ``` 
-![here shows the creation kong namespace and install kong](image/kong-installation.png)
+![Here shows the creation kong namespace and install kong](image/kong-installation.png)
 
    Check:
 
