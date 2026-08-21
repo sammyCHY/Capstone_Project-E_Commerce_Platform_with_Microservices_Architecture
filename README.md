@@ -80,6 +80,13 @@ Capstone_project-E_commerce_platform_with_microservices_architecture/
 
    - Build Docker images and push them to Docker Hub.
 
+The Image here show the ci of the microservices on the pipeline to build container image.
+
+![The Image here shows the microservices deployed in the dockerhub via cicd](image/microservice-deploy-via-cicd.png)
+
+
+![The Image shows the container image in the docker hub](image/dockerhub-container-image.png)
+
 ### Task 6: Set up ArgoCD with Kubernetes:
 
    - Install ArgoCD in a Kubernetes cluster.
@@ -117,6 +124,12 @@ Get the initial admin password with the command below.
 kubectl -n argocd get secret argocd-initial-admin-secret \
   -o jsonpath="{.data.password}" | base64 -d
 ```
+
+![The Image shows the argocd port-forwarding](image/argocd-portforwarding1.png)
+
+![The Image shows the argocd logging,secret and argocd UI](image/argocd-loging-secret.png)
+
+![The Image shows the argocd UI with microservices deployed](image/microservices-in-argocd-running.png)
 
 ###  Task 7: Kubernetes Deployment:
 
@@ -235,14 +248,16 @@ To access Prometheus locally, use Port-forwarding:
 kubectl port-forward -n monitoring \
   svc/monitoring-kube-prometheus-prometheus 9090:9090
 ```
+![The Image shows the port-forwarding of prometheus](image/port-forwarding-prometheus-monitoring.png)
+
 Then Open:
 
 ```
 http://localhost:9090
 ```
+![The Image shows the Prometheus UI](image/prometheus-ui.png)
 
 You should see the Prometheus web interface.
-
 
 ### Next step Check Grafana.
 
@@ -254,7 +269,7 @@ kubectl get svc -n monitoring | grep grafana
 You should see something similar to:
 
 `monitoring-grafana`
-![The Image shows the grafana monitoring ](image/kubectl-svc-monitoring.png)
+![The Image shows the grafana svs monitoring ](image/kubectl-svc-monitoring.png)
 
 Then:
 
@@ -262,11 +277,14 @@ Then:
 kubectl port-forward -n monitoring \
   svc/monitoring-grafana 3000:80
 ```
+![The Image shows the grafana portforwarding](image/grafana-portforwarding.png)
+
 Open:
 
 ```
 http://localhost:3000
 ```
+![The Image shows the grafana ui](image/grafana-ui.png)
 You should see the Grafana login page.
 
 The Helm installation creates a Kubernetes Secret containing the Grafana admin password.
@@ -277,6 +295,7 @@ Run:
 kubectl get secret -n monitoring monitoring-grafana \
   -o jsonpath="{.data.admin-password}" | base64 --decode
 ```
+![The Image show the grafana secret](image/grafana-secret.png)
 
 Copy the password.
 
@@ -294,6 +313,8 @@ http://localhost:3000
 Username: admin
 Password: <password-you-retrieved>
 ```
+![The Image shows the grafana ui interface](image/grafana-ui-interface.png)
+
    - Set up logging using Elasticsearch, Fluentd, and Kibana (EFK stack).
 
 At this point I will not be able to deploy the setup above because I'm using minikube for this project but the whole procedures will be explained below.
