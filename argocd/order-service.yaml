@@ -8,7 +8,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/YOUR_USERNAME/e-commerce-platform.git
+    repoURL: https://github.com/sammyCHY/Capstone_Project-E_Commerce_Platform_with_Microservices_Architecture.git
     targetRevision: main
     path: kubernetes/order-service
 

@@ -7,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/YOUR_USERNAME/e-commerce-pla
+    repoURL: https://github.com/sammyCHY/Capstone_Project-E_Commerce_Platform_with_Microservices_Architecture.git
     targetRevision: main
     path: kubernetes/product-service
 
