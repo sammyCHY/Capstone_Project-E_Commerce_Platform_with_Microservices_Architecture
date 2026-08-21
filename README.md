@@ -255,7 +255,8 @@ Then Open:
 ```
 http://localhost:9090
 ```
-![The Image shows the Prometheus UI](image/prometheus-ui.png)
+
+![The Image shows the Prometheus UI](image/prometheus-interface.png)
 
 You should see the Prometheus web interface.
 
