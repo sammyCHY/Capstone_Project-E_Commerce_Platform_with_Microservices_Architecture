@@ -1,4 +1,4 @@
-name: E-Commerce_Platform_with_Microservices_Architecture-CI/CD
+name: E-Commerce Platform with Microservices Architecture - CI/CD
 
 on:
   push:
@@ -9,21 +9,12 @@ on:
     branches:
       - main
 
+
 jobs:
 
-  # --------------------------------------------------
-  # 2. Configure AWS credentials
-  # --------------------------------------------------
-  - name: Configure AWS credentials
-    uses: aws-actions/configure-aws-credentials@v4
-    with:
-      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      aws-region: ${{ env.AWS_REGION }}
-
-  # ==========================
+  # =========================================================
   # PRODUCT SERVICE
-  # ==========================
+  # =========================================================
   product-service:
     name: Product Service
     runs-on: ubuntu-latest
@@ -33,9 +24,12 @@ jobs:
         working-directory: product-service
 
     steps:
+
+      # Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -43,19 +37,15 @@ jobs:
           cache: npm
           cache-dependency-path: product-service/package-lock.json
 
+      # Install dependencies
       - name: Install dependencies
         run: npm ci
 
+      # Run tests
       - name: Run tests
         run: npm test --if-present
 
-      - name: Build Docker image
-        run: |
-          docker build \
-            -t ${{ secrets.DOCKERHUB_USERNAME }}/product-service:${{ github.sha }} \
-            -t ${{ secrets.DOCKERHUB_USERNAME }}/product-service:latest \
-            .
-
+      # Login to Docker Hub
       - name: Login to Docker Hub
         if: github.event_name == 'push'
         uses: docker/login-action@v3
@@ -63,6 +53,15 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      # Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/product-service:${{ github.sha }} \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/product-service:latest \
+            .
+
+      # Push Docker image
       - name: Push Docker image
         if: github.event_name == 'push'
         run: |
@@ -70,9 +69,9 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/product-service:latest
 
 
-  # ==========================
+  # =========================================================
   # CART SERVICE
-  # ==========================
+  # =========================================================
   cart-service:
     name: Cart Service
     runs-on: ubuntu-latest
@@ -82,9 +81,12 @@ jobs:
         working-directory: cart-service
 
     steps:
+
+      # Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -92,19 +94,15 @@ jobs:
           cache: npm
           cache-dependency-path: cart-service/package-lock.json
 
+      # Install dependencies
       - name: Install dependencies
         run: npm ci
 
+      # Run tests
       - name: Run tests
         run: npm test --if-present
 
-      - name: Build Docker image
-        run: |
-          docker build \
-            -t ${{ secrets.DOCKERHUB_USERNAME }}/cart-service:${{ github.sha }} \
-            -t ${{ secrets.DOCKERHUB_USERNAME }}/cart-service:latest \
-            .
-
+      # Login to Docker Hub
       - name: Login to Docker Hub
         if: github.event_name == 'push'
         uses: docker/login-action@v3
@@ -112,6 +110,15 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      # Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/cart-service:${{ github.sha }} \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/cart-service:latest \
+            .
+
+      # Push Docker image
       - name: Push Docker image
         if: github.event_name == 'push'
         run: |
@@ -119,9 +126,9 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/cart-service:latest
 
 
-  # ==========================
+  # =========================================================
   # ORDER SERVICE
-  # ==========================
+  # =========================================================
   order-service:
     name: Order Service
     runs-on: ubuntu-latest
@@ -131,9 +138,12 @@ jobs:
         working-directory: order-service
 
     steps:
+
+      # Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -141,19 +151,15 @@ jobs:
           cache: npm
           cache-dependency-path: order-service/package-lock.json
 
+      # Install dependencies
       - name: Install dependencies
         run: npm ci
 
+      # Run tests
       - name: Run tests
         run: npm test --if-present
 
-      - name: Build Docker image
-        run: |
-          docker build \
-            -t ${{ secrets.DOCKERHUB_USERNAME }}/order-service:${{ github.sha }} \
-            -t ${{ secrets.DOCKERHUB_USERNAME }}/order-service:latest \
-            .
-
+      # Login to Docker Hub
       - name: Login to Docker Hub
         if: github.event_name == 'push'
         uses: docker/login-action@v3
@@ -161,6 +167,15 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      # Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/order-service:${{ github.sha }} \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/order-service:latest \
+            .
+
+      # Push Docker image
       - name: Push Docker image
         if: github.event_name == 'push'
         run: |
